@@ -74,6 +74,12 @@
   <!-- Relay input and power -->
   <path d="M420 420 H455 V395 H490" class="wire" marker-end="url(#arrow)"/>
   <text x="429" y="409" class="tiny">GPIO25</text>
+  <circle cx="455" cy="395" r="4" class="node"/>
+  <path d="M455 395 H475 V383" class="wireThin"/>
+  <rect x="465" y="348" width="20" height="35" fill="#fff" stroke="#334155" stroke-width="2"/>
+  <text x="475" y="369" class="tiny" text-anchor="middle" transform="rotate(-90 475 369)">10k</text>
+  <path d="M475 348 V330" class="ground"/>
+  <text x="485" y="334" class="tiny">GND*</text>
   <path d="M420 350 H450 V316 H490" class="power" marker-end="url(#arrowRed)"/>
   <text x="427" y="338" class="tiny" fill="#991b1b">VIN 5V*</text>
   <path d="M420 535 H465 V455 H490" class="ground"/>
@@ -193,8 +199,8 @@
 
   <rect x="55" y="930" width="1255" height="84" rx="8" class="warnbox"/>
   <text x="75" y="956" class="label" font-weight="700">Wiring and component checks required before use:</text>
-  <text x="75" y="979" class="small">* Power relay module VCC from board VIN (USB-derived 5 V) only after verifying current budget. Preserve opto-isolation and module supply/jumper diagram.</text>
-  <text x="75" y="999" class="small">Set H/L trigger to match verified firmware safe polarity; verify 3.3 V IN compatibility. Never apply 125 V to GPIO.</text>
+  <text x="75" y="979" class="small">* Active-high relay: GPIO25 LOW is inactive. Use a compatible reset pull-down to GND; remove pull-ups. Never connect GPIO25 to 5 V.</text>
+  <text x="75" y="999" class="small">Power relay module VCC from VIN only after verifying current budget; preserve opto-isolation and set module H/L selector to high-trigger.</text>
 
   <text x="55" y="1032" class="tiny" fill="#64748b">Drawing status: preliminary concept only — not a construction-ready schematic; see docs/WIRING.md for assumptions and commissioning checks.</text>
 </svg>

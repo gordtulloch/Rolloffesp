@@ -2,7 +2,7 @@ menu "RolloffESP hardware"
 
 choice ROLLOFFESP_RELAY_ACTIVE_LEVEL
     prompt "Relay module active trigger level"
-    default ROLLOFFESP_RELAY_ACTIVE_LOW
+    default ROLLOFFESP_RELAY_ACTIVE_HIGH
 
 config ROLLOFFESP_RELAY_ACTIVE_LOW
     bool "Low level"

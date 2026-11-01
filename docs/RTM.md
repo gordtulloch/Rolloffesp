@@ -4,7 +4,7 @@
 
 This matrix links each Software Requirements Specification (SRS) requirement to its Software Design Description (SDD) element and one or more planned verification cases.
 
-The test IDs below are planning identifiers, not evidence that tests or firmware have been implemented. All test cases are currently **Planned / Not Run**. Protocol-dependent tests remain blocked until the relevant Alpaca, INDI, or Bluetooth profile decisions are approved. Hardware verification remains blocked until the board, relay module, and switch circuits are selected.
+The test IDs below are verification cases. The Alpaca Dome service is implemented and targeted device smoke checks plus CLI unit tests have been run; this does not complete the full Alpaca interoperability case (RTM-T-008). INDI and Bluetooth tests remain blocked until their profiles are approved. Hardware verification remains blocked until the board, relay module, and switch circuits are selected.
 
 ## 2. Traceability conventions
 

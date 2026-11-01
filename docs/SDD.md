@@ -239,10 +239,10 @@ Startup sequence:
 2. Initialize input GPIO and sample both endpoint inputs.
 3. Initialize the domain service and mark position based on the input truth table.
 4. Initialize the Wi-Fi network manager. If no valid home credentials are stored, start setup hotspot mode and the configuration page; otherwise attempt to join the configured network.
-5. Initialize Alpaca/INDI services only when the configured home-network connection is available. If the device is unprovisioned, expose only the setup interface.
-6. Enable roof command handling only after the control service is ready; setup mode shall never enable relay commands.
+5. Initialize the Alpaca HTTP/discovery service with the network manager. Report the Alpaca device disconnected and reject roof commands until the configured home-network station has obtained an IP address. If unprovisioned, the setup interface remains available.
+6. Enable roof command handling only after the control service and home-network station are ready; setup mode shall never enable relay commands.
 
-During the current hardware bring-up phase, an explicit USB serial bench console can request a bounded relay pulse. It is not enabled on boot and must be disabled before the relay is connected to a live roof controller. The Wi-Fi setup and pulse-duration web configuration are implemented; Alpaca and INDI network command services remain unimplemented.
+During the current hardware bring-up phase, an explicit USB serial bench console can request a bounded relay pulse. It is not enabled on boot and must be disabled before the relay is connected to a live roof controller. Wi-Fi setup, pulse-duration web configuration, and the Alpaca and INDI Dome services are implemented. Alpaca is available at TCP port 11111, with UDP discovery on port 32227; INDI listens on TCP port 7624. Both interfaces call the shared roof-control module, which owns motion state, endpoint validation, and relay command handling. INDI currently accepts one client connection at a time and publishes limit states through its `ROOF_POSITION` switch vector.
 
 Failure to start Wi-Fi, INDI, or Bluetooth shall not trigger relay activation. Any reset or communications reconnection shall not replay prior commands. The recovery path after a previously configured network becomes unavailable is an open decision; it must not silently expose an unsecured setup access point.
 

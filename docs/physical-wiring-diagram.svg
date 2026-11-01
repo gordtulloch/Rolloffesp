@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="auto" viewBox="0 0 1300 820" role="img" aria-labelledby="title description" style="max-width: 1300px">
+  <title id="title">RolloffESP wiring diagram</title>
+  <desc id="description">Component-only physical wiring diagram for the ESP32 roof controller.</desc>
+  <defs>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #17212b; font-size: 14px; }
+      .small { font-size: 11px; }
+      .tiny { font-size: 9px; }
+      .part { fill: #fff; stroke: #334155; stroke-width: 2; }
+      .board { fill: #eaf2f8; stroke: #244b66; stroke-width: 3; }
+      .red { fill: none; stroke: #dc2626; stroke-width: 3; }
+      .orange { fill: none; stroke: #ea8a00; stroke-width: 3; }
+      .blue { fill: none; stroke: #2563eb; stroke-width: 3; }
+      .black { fill: none; stroke: #374151; stroke-width: 3; }
+      .purple { fill: none; stroke: #7c3aed; stroke-width: 3; }
+      .node { fill: #17212b; }
+    </style>
+  </defs>
+  <rect width="1300" height="820" fill="#fff"/>
+
+  <!-- ESP32 -->
+  <rect x="35" y="185" width="225" height="485" rx="8" class="board"/>
+  <text x="147" y="215" text-anchor="middle">ESP32 WROOM</text>
+  <text x="55" y="267">VIN / 5V</text>
+  <text x="55" y="317">GPIO25</text>
+  <text x="55" y="367">GND</text>
+  <text x="55" y="417">3V3</text>
+  <text x="55" y="477">GPIO34</text>
+  <text x="55" y="627">GPIO35</text>
+  <text x="55" y="657">GND</text>
+  <circle cx="260" cy="260" r="4" class="node"/>
+  <circle cx="260" cy="310" r="4" class="node"/>
+  <circle cx="260" cy="360" r="4" class="node"/>
+  <circle cx="260" cy="410" r="4" class="node"/>
+  <circle cx="260" cy="470" r="4" class="node"/>
+  <circle cx="260" cy="620" r="4" class="node"/>
+  <circle cx="260" cy="650" r="4" class="node"/>
+
+  <!-- Relay input -->
+  <rect x="390" y="55" width="260" height="155" rx="8" class="part"/>
+  <text x="520" y="84" text-anchor="middle">1-CH RELAY MODULE</text>
+  <rect x="410" y="105" width="65" height="42" class="part"/>
+  <rect x="488" y="105" width="65" height="42" class="part"/>
+  <rect x="566" y="105" width="65" height="42" class="part"/>
+  <text x="442" y="131" text-anchor="middle" class="small">VCC</text>
+  <text x="520" y="131" text-anchor="middle" class="small">IN</text>
+  <text x="598" y="131" text-anchor="middle" class="small">GND</text>
+  <path d="M260 260 H300 V126 H410" class="red"/>
+  <path d="M260 310 H330 V160 H520 V147" class="blue"/>
+  <circle cx="330" cy="160" r="5" class="node"/>
+  <rect x="333" y="200" width="34" height="42" class="part"/>
+  <text x="350" y="225" text-anchor="middle" class="tiny">R 10k</text>
+  <path d="M330 160 H350 V200" class="blue"/>
+  <path d="M350 242 V260 M338 260 H362 M342 266 H358 M346 272 H354" class="black"/>
+  <path d="M260 360 H360 V180 H598 V147" class="black"/>
+
+  <!-- Relay contact outputs -->
+  <rect x="720" y="55" width="190" height="155" rx="8" class="part"/>
+  <text x="815" y="84" text-anchor="middle">RELAY CONTACTS</text>
+  <rect x="740" y="105" width="52" height="42" class="part"/>
+  <rect x="802" y="105" width="52" height="42" class="part"/>
+  <rect x="864" y="105" width="32" height="42" class="part"/>
+  <text x="766" y="131" text-anchor="middle" class="tiny">COM</text>
+  <text x="828" y="131" text-anchor="middle" class="tiny">NO</text>
+  <text x="880" y="131" text-anchor="middle" class="tiny">NC</text>
+  <rect x="1030" y="82" width="235" height="100" rx="8" class="part"/>
+  <text x="1147" y="113" text-anchor="middle">ROOF BUTTON</text>
+  <circle cx="1060" cy="151" r="4" class="node"/>
+  <circle cx="1235" cy="151" r="4" class="node"/>
+  <path d="M766 147 V235 H1060 V151" class="purple"/>
+  <path d="M828 147 V255 H1235 V151" class="purple"/>
+
+  <!-- Power indicator -->
+  <rect x="390" y="250" width="76" height="34" class="part"/>
+  <text x="428" y="272" text-anchor="middle" class="small">R 1k</text>
+  <circle cx="515" cy="267" r="17" class="part"/>
+  <text x="515" y="271" text-anchor="middle" class="tiny">RED</text>
+  <path d="M260 260 H340 V267 H390" class="red"/>
+  <path d="M466 267 H498" class="red"/>
+  <path d="M532 267 H550 V360 H260" class="black"/>
+
+  <!-- 3V3 and ground buses -->
+  <path d="M260 410 H300 V340 H1190" class="orange"/>
+  <path d="M260 650 V780 H1190" class="black"/>
+
+  <!-- OPEN input -->
+  <rect x="365" y="453" width="76" height="34" class="part"/>
+  <text x="403" y="475" text-anchor="middle" class="small">R 1k</text>
+  <circle cx="520" cy="470" r="5" class="node"/>
+  <rect x="503" y="376" width="34" height="54" class="part"/>
+  <text x="520" y="405" text-anchor="middle" class="tiny" transform="rotate(-90 520 405)">R 10k</text>
+  <rect x="656" y="520" width="34" height="58" class="part"/>
+  <text x="673" y="551" text-anchor="middle" class="tiny" transform="rotate(-90 673 551)">C 100n</text>
+  <rect x="755" y="427" width="185" height="86" rx="8" class="part"/>
+  <text x="847" y="457" text-anchor="middle">OPEN SWITCH</text>
+  <text x="783" y="493" text-anchor="middle" class="tiny">COM</text>
+  <text x="912" y="493" text-anchor="middle" class="tiny">NO</text>
+  <circle cx="783" cy="500" r="4" class="node"/>
+  <circle cx="912" cy="500" r="4" class="node"/>
+  <rect x="568" y="376" width="30" height="42" class="part"/>
+  <text x="583" y="401" text-anchor="middle" class="tiny">R 1k</text>
+  <circle cx="583" cy="440" r="14" class="part"/>
+  <text x="583" y="444" text-anchor="middle" class="tiny">LED</text>
+  <path d="M260 470 H365" class="blue"/>
+  <path d="M441 470 H520" class="blue"/>
+  <path d="M520 340 V376" class="orange"/>
+  <path d="M520 430 V470" class="orange"/>
+  <path d="M520 470 H783" class="blue"/>
+  <path d="M783 470 V500" class="blue"/>
+  <path d="M912 500 V780" class="black"/>
+  <path d="M673 470 V520" class="blue"/>
+  <path d="M673 578 V780" class="black"/>
+  <path d="M520 470 H673" class="blue"/>
+  <path d="M583 418 V426" class="orange"/>
+  <path d="M583 454 V470 H520" class="orange"/>
+  <path d="M583 340 V376" class="orange"/>
+
+  <!-- CLOSED input -->
+  <rect x="365" y="603" width="76" height="34" class="part"/>
+  <text x="403" y="625" text-anchor="middle" class="small">R 1k</text>
+  <circle cx="1000" cy="620" r="5" class="node"/>
+  <rect x="983" y="535" width="34" height="54" class="part"/>
+  <text x="1000" y="564" text-anchor="middle" class="tiny" transform="rotate(-90 1000 564)">R 10k</text>
+  <rect x="1013" y="670" width="34" height="42" class="part"/>
+  <text x="1030" y="693" text-anchor="middle" class="tiny" transform="rotate(-90 1030 693)">C 100n</text>
+  <rect x="1135" y="577" width="145" height="86" rx="8" class="part"/>
+  <text x="1207" y="607" text-anchor="middle">CLOSED</text>
+  <text x="1207" y="627" text-anchor="middle">SWITCH</text>
+  <text x="1155" y="650" text-anchor="middle" class="tiny">COM</text>
+  <text x="1260" y="650" text-anchor="middle" class="tiny">NO</text>
+  <circle cx="1155" cy="650" r="4" class="node"/>
+  <circle cx="1260" cy="650" r="4" class="node"/>
+  <rect x="1080" y="535" width="30" height="42" class="part"/>
+  <text x="1095" y="560" text-anchor="middle" class="tiny">R 1k</text>
+  <circle cx="1095" cy="600" r="14" class="part"/>
+  <text x="1095" y="604" text-anchor="middle" class="tiny">LED</text>
+  <path d="M260 620 H300 V720 H900 V620 H924" class="blue"/>
+  <rect x="924" y="603" width="76" height="34" class="part"/>
+  <text x="962" y="625" text-anchor="middle" class="small">R 1k</text>
+  <path d="M1000 589 V620" class="orange"/>
+  <path d="M1000 620 H1155 V650" class="blue"/>
+  <path d="M1260 650 V780" class="black"/>
+  <path d="M1030 620 V670" class="blue"/>
+  <path d="M1030 712 V735 H1100 V780" class="black"/>
+  <path d="M1095 577 V586" class="orange"/>
+  <path d="M1095 614 V620 H1000" class="orange"/>
+  <path d="M1095 340 V535" class="orange"/>
+  <path d="M1000 340 V535" class="orange"/>
+</svg>

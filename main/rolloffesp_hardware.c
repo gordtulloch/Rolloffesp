@@ -65,11 +65,14 @@ esp_err_t rolloffesp_hardware_init(void)
     const gpio_config_t relay_config = {
         .pin_bit_mask = 1ULL << RELAY_GPIO,
         .mode = GPIO_MODE_OUTPUT,
-        .pull_up_en = GPIO_PULLUP_DISABLE,
-        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .pull_up_en = RELAY_ACTIVE_LEVEL == 0
+            ? GPIO_PULLUP_ENABLE : GPIO_PULLUP_DISABLE,
+        .pull_down_en = RELAY_ACTIVE_LEVEL == 1
+            ? GPIO_PULLDOWN_ENABLE : GPIO_PULLDOWN_DISABLE,
         .intr_type = GPIO_INTR_DISABLE,
     };
 
+    // Preload the inactive output latch before enabling the GPIO driver.
     err = gpio_config(&relay_config);
     if (err != ESP_OK) {
         return err;
@@ -96,7 +99,7 @@ esp_err_t rolloffesp_hardware_init(void)
 
     ESP_LOGI(TAG, "GPIO initialized: relay=%d, open=%d, closed=%d",
              RELAY_GPIO, OPEN_GPIO, CLOSED_GPIO);
-    ESP_LOGI(TAG, "Relay active level is %s; default pulse is %d ms",
+    ESP_LOGI(TAG, "Relay active level is %s; inactive bias is enabled; default pulse is %d ms",
              RELAY_ACTIVE_LEVEL ? "HIGH" : "LOW",
              CONFIG_ROLLOFFESP_RELAY_PULSE_MS);
     return ESP_OK;

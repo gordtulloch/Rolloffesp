@@ -4,11 +4,11 @@ A project to build an ESP32-based controller for a rolloff observatory roof. The
 
 ## Software interfaces
 
-- The ESP32 appliance hosts an ASCOM Alpaca interface for roof control and position reporting.
-- The ESP32 appliance also hosts an INDI-compatible interface for INDI clients.
+- The ESP32 firmware hosts an ASCOM Alpaca Dome interface for roof control and position reporting.
+- An INDI-compatible Dome interface is served directly to INDI clients.
 - A local configuration web server provides first-time Wi-Fi setup.
 
-Both astronomy interfaces are served directly by the appliance and use the same underlying roof state and control logic. No external Alpaca-to-INDI bridge or companion driver process is required. On initial setup, the appliance creates a WPA2-protected Wi-Fi hotspot named `ROLLOFFESP` with the default password `12345678`; the user can open `http://rolloffesp.local` to enter the home Wi-Fi SSID and password. The appliance then connects to that network using WPA2 and disables the setup hotspot after successful connection. Because the setup password is a well-known default, the hotspot is intended only for initial provisioning. Recovery behavior and protocol conformance details remain to be specified.
+The Alpaca Dome service listens on TCP port 11111 and supports standard shutter status and roof commands. Alpaca discovery is available over UDP port 32227. The INDI service listens on TCP port 7624 and exposes the `RolloffESP` Dome device with connection, shutter, abort, park, and limit-position properties. Both network interfaces use the same roof state and command validation. On initial setup, the appliance creates a WPA2-protected Wi-Fi hotspot named `ROLLOFFESP` with the default password `12345678`; the user can open `http://rolloffesp.local` to enter the home Wi-Fi SSID and password. The appliance then connects to that network using WPA2 and disables the setup hotspot after successful connection. Because the setup password is a well-known default, the hotspot is intended only for initial provisioning. Broader Alpaca and INDI protocol conformance remains to be verified.
 
 ## Hardware
 
@@ -50,11 +50,13 @@ On first boot, connect to the `ROLLOFFESP` hotspot (default WPA2 password `12345
 
 ## Wiring concept
 
-See [the provisional schematic](docs/rolloffesp-provisional-schematic.svg) and [WIRING.md](docs/WIRING.md). GPIO25 is assigned to relay control, with GPIO34/35 for the open/closed inputs. Confirm the board header labels and relay module's exact wiring/polarity before connecting the roof control circuit.
+See the [physical wiring diagram](docs/physical-wiring-diagram.svg), [provisional schematic](docs/rolloffesp-provisional-schematic.svg), and [wire-by-wire schedule](docs/WIRING.md#physical-wiring-schedule). GPIO25 is assigned to relay control, with GPIO34/35 for the open/closed inputs. Confirm the board header labels and relay module's exact wiring/polarity before connecting the roof control circuit.
 
 ## Firmware development
 
-Firmware uses Espressif ESP-IDF. See [DEVELOPMENT.md](docs/DEVELOPMENT.md) for Windows toolchain setup, bench commands, and build/flash instructions. GPIO input monitoring, bounded relay bench control, Wi-Fi provisioning, and web configuration are implemented. Alpaca and INDI services remain unimplemented.
+Firmware uses Espressif ESP-IDF. See [DEVELOPMENT.md](docs/DEVELOPMENT.md) for Windows toolchain setup, bench commands, and build/flash instructions. GPIO input monitoring, bounded relay bench control, Wi-Fi provisioning, web configuration, and embedded Alpaca and INDI Dome services are implemented.
+
+An Alpaca Dome test client is available at [tools/alpaca_client.py](tools/alpaca_client.py); usage examples and current firmware limitations are documented in [DEVELOPMENT.md](docs/DEVELOPMENT.md#alpaca-command-line-test-client).
 
 ## Safety notes
 
@@ -66,4 +68,4 @@ Firmware uses Espressif ESP-IDF. See [DEVELOPMENT.md](docs/DEVELOPMENT.md) for W
 
 ## Project status
 
-This repository currently contains project documentation only. Firmware, the Wi-Fi setup hotspot and configuration page, the Alpaca and INDI interfaces, wiring diagrams, enclosure design, and hardware validation remain to be developed.
+The repository includes ESP-IDF firmware for GPIO bench control, Wi-Fi/web configuration, and embedded Alpaca and INDI services, along with provisional circuit and physical wiring diagrams. Protocol interoperability, enclosure design, and hardware validation remain to be completed; verify all provisional wiring against the exact board and module before installation.

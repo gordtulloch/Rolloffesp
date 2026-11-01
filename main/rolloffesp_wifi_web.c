@@ -1,5 +1,7 @@
 #include "rolloffesp_wifi_web.h"
+#include "rolloffesp_alpaca.h"
 #include "rolloffesp_hardware.h"
+#include "rolloffesp_indi.h"
 
 #include <ctype.h>
 #include <stdio.h>
@@ -469,6 +471,8 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
     }
     if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
         s_station_connected = false;
+        rolloffesp_alpaca_set_network_ready(false);
+        rolloffesp_indi_set_network_ready(false);
         const wifi_event_sta_disconnected_t *event = event_data;
         ESP_LOGW(TAG, "Station disconnected; reason=%u, retry=%u/%u",
                  event->reason, s_station_retries + 1, WIFI_RETRY_LIMIT);
@@ -500,6 +504,8 @@ static void wifi_event_handler(void *arg, esp_event_base_t event_base,
     if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
         const ip_event_got_ip_t *event = event_data;
         s_station_connected = true;
+        rolloffesp_alpaca_set_network_ready(true);
+        rolloffesp_indi_set_network_ready(true);
         s_connection_pending = false;
         s_station_retries = 0;
 
@@ -603,6 +609,11 @@ esp_err_t rolloffesp_wifi_web_start(void)
     if (err != ESP_OK) {
         return err;
     }
+    err = mdns_service_add("RolloffESP Alpaca", "_ascom-alpaca", "_tcp",
+                           11111, NULL, 0);
+    if (err != ESP_OK) {
+        return err;
+    }
 
     err = start_web_server();
     if (err != ESP_OK) {
@@ -643,6 +654,16 @@ esp_err_t rolloffesp_wifi_web_start(void)
         }
     } else {
         strlcpy(s_connection_message, "Setup hotspot ready", sizeof(s_connection_message));
+    }
+
+    err = rolloffesp_alpaca_start();
+    if (err != ESP_OK) {
+        return err;
+    }
+    err = rolloffesp_indi_start();
+    if (err != ESP_OK) {
+        ESP_LOGE(TAG, "Failed to start INDI server: %s", esp_err_to_name(err));
+        return err;
     }
 
     ESP_LOGI(TAG, "Configuration page available at http://rolloffesp.local");
