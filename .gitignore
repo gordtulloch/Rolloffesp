@@ -1,0 +1,22 @@
+# ESP-IDF build output
+/build/
+/sdkconfig
+/sdkconfig.old
+/dependencies.lock
+/managed_components/
+
+# ESP-IDF-generated files
+/flash_project_args
+/flasher_args.json
+/fuzz/
+/bootloader/
+/partition_table/
+/ota_data_initial.bin
+
+# Editor and operating-system files
+.vscode/.cortex-debug.registers.state.json
+.vscode/.cortex-debug.peripherals.state.json
+*.swp
+*~
+Thumbs.db
+.DS_Store

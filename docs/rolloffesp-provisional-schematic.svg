@@ -1,0 +1,200 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="auto" viewBox="0 0 1400 1040" role="img" aria-labelledby="title description" style="max-width: 1400px">
+  <title id="title">RolloffESP provisional circuit schematic</title>
+  <desc id="description">Provisional low-voltage wiring concept for a Freenove ESP32 WROOM v1.3 development board, generic five-volt relay module, two dry-contact roof limit switches, and an isolated relay contact in parallel with the existing manual button.</desc>
+  <defs>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #17212b; }
+      .title { font-size: 30px; font-weight: 700; }
+      .subtitle { font-size: 16px; fill: #475569; }
+      .heading { font-size: 19px; font-weight: 700; }
+      .label { font-size: 15px; }
+      .small { font-size: 13px; }
+      .tiny { font-size: 11px; }
+      .box { fill: #f8fafc; stroke: #334155; stroke-width: 2; }
+      .device { fill: #eaf2f8; stroke: #244b66; stroke-width: 2.5; }
+      .warnbox { fill: #fff7ed; stroke: #c2410c; stroke-width: 2; }
+      .noteBox { fill: #fefce8; stroke: #a16207; stroke-width: 1.5; }
+      .wire { fill: none; stroke: #263746; stroke-width: 3; }
+      .wireThin { fill: none; stroke: #263746; stroke-width: 2; }
+      .power { fill: none; stroke: #b91c1c; stroke-width: 3; }
+      .ground { fill: none; stroke: #475569; stroke-width: 3; }
+      .contact { fill: none; stroke: #0f766e; stroke-width: 3; }
+      .dash { stroke-dasharray: 8 6; }
+      .node { fill: #263746; }
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#263746"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="10" markerHeight="8" refX="8" refY="4" orient="auto">
+      <path d="M0,0 L9,4 L0,8 Z" fill="#b91c1c"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1400" height="1040" fill="#ffffff"/>
+  <text x="42" y="48" class="title">RolloffESP — Provisional Low-Voltage Schematic</text>
+  <text x="43" y="76" class="subtitle">Freenove ESP32 WROOM v1.3 • USB-C power • 1-channel 5 V opto-isolated H/L-trigger relay • dry-contact position switches</text>
+
+  <rect x="40" y="98" width="1320" height="78" rx="8" class="warnbox"/>
+  <text x="60" y="127" class="heading" fill="#9a3412">PROVISIONAL — verify component datasheets and board pinout before wiring.</text>
+  <text x="60" y="153" class="label">Do not connect roof motor power or 125 V to the ESP32. Relay contacts only emulate the existing dry-contact manual button.</text>
+
+  <!-- ESP32 development board -->
+  <rect x="55" y="215" width="365" height="345" rx="12" class="device"/>
+  <text x="78" y="250" class="heading">ESP32 development board</text>
+  <text x="78" y="276" class="label">Freenove ESP32 WROOM v1.3</text>
+  <text x="78" y="310" class="label">USB-C input: 5 V power / programming</text>
+  <rect x="82" y="328" width="124" height="42" rx="5" class="box"/>
+  <text x="96" y="355" class="label">USB-C 5 V</text>
+  <path d="M206 349 H274" class="power" marker-end="url(#arrowRed)"/>
+  <text x="286" y="345" class="small">Board VIN: USB-derived</text>
+  <text x="286" y="363" class="small">5 V and 3.3 V logic</text>
+
+  <line x1="78" y1="390" x2="397" y2="390" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="78" y="420" class="label">GPIO25 — RELAY (output)</text>
+  <text x="78" y="448" class="label">GPIO34 — OPEN (input only)</text>
+  <text x="78" y="476" class="label">GPIO35 — CLOSED (input only)</text>
+  <text x="78" y="515" class="small">GPIO34/35 use external pull-ups shown</text>
+  <text x="78" y="535" class="small">below; verify board header labels.</text>
+
+  <!-- Relay module -->
+  <rect x="490" y="220" width="300" height="245" rx="12" class="device"/>
+  <text x="515" y="255" class="heading">1-channel relay module</text>
+  <text x="515" y="281" class="label">5 V • optocoupler • H/L trigger</text>
+  <rect x="535" y="310" width="210" height="105" rx="8" fill="#fff" stroke="#244b66" stroke-width="2"/>
+  <line x1="640" y1="320" x2="640" y2="405" stroke="#64748b" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="548" y="341" class="tiny">LOGIC INPUT</text>
+  <circle cx="580" cy="370" r="13" fill="none" stroke="#334155" stroke-width="2"/>
+  <text x="565" y="375" class="tiny">OPTO</text>
+  <path d="M600 370 H627" class="wireThin" marker-end="url(#arrow)"/>
+  <text x="657" y="354" class="small">5 V relay coil</text>
+  <text x="657" y="380" class="tiny">isolated side</text>
+  <text x="515" y="440" class="small">VCC: board VIN (5 V) • GND_IN: per schematic</text>
+  <text x="515" y="458" class="tiny">IN: select H/L trigger; verify 3.3 V logic compatibility</text>
+
+  <!-- Relay input and power -->
+  <path d="M420 420 H455 V395 H490" class="wire" marker-end="url(#arrow)"/>
+  <text x="429" y="409" class="tiny">GPIO25</text>
+  <path d="M420 350 H450 V316 H490" class="power" marker-end="url(#arrowRed)"/>
+  <text x="427" y="338" class="tiny" fill="#991b1b">VIN 5V*</text>
+  <path d="M420 535 H465 V455 H490" class="ground"/>
+  <text x="426" y="554" class="tiny">GND_IN per module schematic</text>
+
+  <!-- Relay isolated contacts and manual button circuit -->
+  <rect x="890" y="220" width="420" height="245" rx="12" class="box"/>
+  <text x="915" y="255" class="heading">Existing roof control circuit</text>
+  <text x="915" y="281" class="label">Dry-contact manual button input only</text>
+  <text x="915" y="310" class="small">Button terminal A</text>
+  <text x="1180" y="310" class="small">Button terminal B</text>
+  <path d="M960 340 H1020" class="wireThin"/>
+  <path d="M1020 340 L1095 310" class="wireThin"/>
+  <path d="M1095 340 H1240" class="wireThin"/>
+  <circle cx="1020" cy="340" r="5" class="node"/>
+  <circle cx="1095" cy="340" r="5" class="node"/>
+  <text x="1020" y="373" class="small">Manual button</text>
+  <path d="M960 340 V410 H1040" class="contact"/>
+  <path d="M1040 410 L1100 386" class="contact"/>
+  <path d="M1100 410 H1240 V340" class="contact"/>
+  <circle cx="1040" cy="410" r="5" fill="#0f766e"/>
+  <circle cx="1100" cy="410" r="5" fill="#0f766e"/>
+  <text x="1000" y="443" class="small">Relay COM — NO (in parallel with button)</text>
+  <path d="M790 340 H850 V410 H890" class="contact"/>
+  <path d="M790 390 H865 V430 H890" class="contact"/>
+  <text x="805" y="326" class="tiny">COM</text>
+  <text x="805" y="386" class="tiny">NO</text>
+  <text x="915" y="462" class="tiny">Keep roof-control contacts electrically isolated from ESP32 logic/ground.</text>
+
+  <!-- Board power indicator -->
+  <rect x="890" y="490" width="420" height="100" rx="10" class="noteBox"/>
+  <text x="910" y="518" class="heading">Board power indicator — RED</text>
+  <text x="910" y="553" class="small">5V_USB</text>
+  <path d="M968 548 H1000" class="power"/>
+  <rect x="1000" y="535" width="78" height="26" fill="#fff" stroke="#334155" stroke-width="2"/>
+  <text x="1006" y="553" class="tiny">R_PWR 1 kΩ</text>
+  <path d="M1078 548 H1100" class="power"/>
+  <polygon points="1100,536 1120,548 1100,560" fill="#b91c1c" stroke="#7f1d1d" stroke-width="1.5"/>
+  <line x1="1123" y1="534" x2="1123" y2="562" stroke="#7f1d1d" stroke-width="2.5"/>
+  <path d="M1123 548 H1190" class="ground"/>
+  <path d="M1190 548 V562 M1178 562 H1202 M1182 569 H1198 M1186 576 H1194" class="ground"/>
+  <text x="1210" y="553" class="tiny">GND</text>
+
+  <!-- Position switch circuits -->
+  <text x="55" y="615" class="heading">Position inputs — low-voltage dry-contact circuits</text>
+  <text x="55" y="640" class="small">Use COM and NO on each switch (verify markings). Switch closure lights the indicator and pulls the GPIO LOW; software debounce required.</text>
+
+  <rect x="55" y="665" width="600" height="245" rx="12" class="box"/>
+  <text x="78" y="698" class="heading">Roof OPEN limit switch</text>
+  <text x="80" y="735" class="small">3V3</text>
+  <path d="M120 730 H170" class="power"/>
+  <rect x="170" y="716" width="95" height="28" fill="#fff" stroke="#334155" stroke-width="2"/>
+  <text x="181" y="735" class="tiny">R1 10 kΩ</text>
+  <path d="M265 730 H340" class="wireThin"/>
+  <circle cx="340" cy="730" r="5" class="node"/>
+  <path d="M340 730 H390" class="wireThin"/>
+  <rect x="390" y="716" width="95" height="28" fill="#fff" stroke="#334155" stroke-width="2"/>
+  <text x="400" y="735" class="tiny">R2 1 kΩ</text>
+  <path d="M485 730 H585" class="wireThin" marker-end="url(#arrow)"/>
+  <text x="500" y="714" class="tiny">GPIO34</text>
+  <path d="M120 730 V780 H155" class="power"/>
+  <rect x="155" y="766" width="72" height="28" fill="#fff" stroke="#334155" stroke-width="2"/>
+  <text x="161" y="785" class="tiny">R_LED1 1 kΩ</text>
+  <path d="M227 780 H247" class="power"/>
+  <polygon points="247,768 269,780 247,792" fill="#15803d" stroke="#14532d" stroke-width="1.5"/>
+  <line x1="272" y1="766" x2="272" y2="794" stroke="#14532d" stroke-width="2.5"/>
+  <path d="M272 780 H320 V730 H340" class="power"/>
+  <path d="M252 758 L245 750 M260 756 L259 746" class="wireThin"/>
+  <text x="174" y="811" class="tiny">D1 GREEN</text>
+  <path d="M340 730 V830 H375" class="wireThin"/>
+  <path d="M375 830 L420 805" class="wireThin"/>
+  <path d="M420 830 H470" class="wireThin"/>
+  <path d="M470 830 H500" class="ground"/>
+  <path d="M500 830 V844 M488 844 H512 M492 851 H508 M496 858 H504" class="ground"/>
+  <text x="358" y="876" class="tiny">OPEN switch COM–NO</text>
+  <path d="M540 730 V780" class="wireThin"/>
+  <line x1="527" y1="780" x2="553" y2="780" stroke="#263746" stroke-width="2"/>
+  <line x1="527" y1="789" x2="553" y2="789" stroke="#263746" stroke-width="2"/>
+  <path d="M540 789 V844 M528 844 H552 M532 851 H548 M536 858 H544" class="ground"/>
+  <text x="500" y="819" class="tiny">C1 100 nF*</text>
+  <text x="78" y="896" class="small">Open switch closed: green LED ON; input reads LOW</text>
+
+  <rect x="700" y="665" width="610" height="245" rx="12" class="box"/>
+  <text x="723" y="698" class="heading">Roof CLOSED limit switch</text>
+  <text x="725" y="735" class="small">3V3</text>
+  <path d="M765 730 H815" class="power"/>
+  <rect x="815" y="716" width="95" height="28" fill="#fff" stroke="#334155" stroke-width="2"/>
+  <text x="826" y="735" class="tiny">R3 10 kΩ</text>
+  <path d="M910 730 H985" class="wireThin"/>
+  <circle cx="985" cy="730" r="5" class="node"/>
+  <path d="M985 730 H1035" class="wireThin"/>
+  <rect x="1035" y="716" width="95" height="28" fill="#fff" stroke="#334155" stroke-width="2"/>
+  <text x="1045" y="735" class="tiny">R4 1 kΩ</text>
+  <path d="M1130 730 H1240" class="wireThin" marker-end="url(#arrow)"/>
+  <text x="1140" y="714" class="tiny">GPIO35</text>
+  <path d="M765 730 V780 H800" class="power"/>
+  <rect x="800" y="766" width="72" height="28" fill="#fff" stroke="#334155" stroke-width="2"/>
+  <text x="806" y="785" class="tiny">R_LED2 1 kΩ</text>
+  <path d="M872 780 H892" class="power"/>
+  <polygon points="892,768 914,780 892,792" fill="#b91c1c" stroke="#7f1d1d" stroke-width="1.5"/>
+  <line x1="917" y1="766" x2="917" y2="794" stroke="#7f1d1d" stroke-width="2.5"/>
+  <path d="M917 780 H965 V730 H985" class="power"/>
+  <path d="M897 758 L890 750 M905 756 L904 746" class="wireThin"/>
+  <text x="818" y="811" class="tiny">D2 RED</text>
+  <path d="M985 730 V830 H1020" class="wireThin"/>
+  <path d="M1020 830 L1065 805" class="wireThin"/>
+  <path d="M1065 830 H1115" class="wireThin"/>
+  <path d="M1115 830 H1145" class="ground"/>
+  <path d="M1145 830 V844 M1133 844 H1157 M1137 851 H1153 M1141 858 H1149" class="ground"/>
+  <text x="1005" y="876" class="tiny">CLOSED switch COM–NO</text>
+  <path d="M1190 730 V780" class="wireThin"/>
+  <line x1="1177" y1="780" x2="1203" y2="780" stroke="#263746" stroke-width="2"/>
+  <line x1="1177" y1="789" x2="1203" y2="789" stroke="#263746" stroke-width="2"/>
+  <path d="M1190 789 V844 M1178 844 H1202 M1182 851 H1198 M1186 858 H1194" class="ground"/>
+  <text x="1152" y="819" class="tiny">C2 100 nF*</text>
+  <text x="723" y="896" class="small">Closed switch closed: red LED ON; input reads LOW</text>
+
+  <rect x="55" y="930" width="1255" height="84" rx="8" class="warnbox"/>
+  <text x="75" y="956" class="label" font-weight="700">Wiring and component checks required before use:</text>
+  <text x="75" y="979" class="small">* Power relay module VCC from board VIN (USB-derived 5 V) only after verifying current budget. Preserve opto-isolation and module supply/jumper diagram.</text>
+  <text x="75" y="999" class="small">Set H/L trigger to match verified firmware safe polarity; verify 3.3 V IN compatibility. Never apply 125 V to GPIO.</text>
+
+  <text x="55" y="1032" class="tiny" fill="#64748b">Drawing status: preliminary concept only — not a construction-ready schematic; see docs/WIRING.md for assumptions and commissioning checks.</text>
+</svg>

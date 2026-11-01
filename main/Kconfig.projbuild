@@ -1,0 +1,40 @@
+menu "RolloffESP hardware"
+
+choice ROLLOFFESP_RELAY_ACTIVE_LEVEL
+    prompt "Relay module active trigger level"
+    default ROLLOFFESP_RELAY_ACTIVE_LOW
+
+config ROLLOFFESP_RELAY_ACTIVE_LOW
+    bool "Low level"
+
+config ROLLOFFESP_RELAY_ACTIVE_HIGH
+    bool "High level"
+
+endchoice
+
+config ROLLOFFESP_RELAY_PULSE_MS
+    int "Default relay button pulse duration (ms)"
+    range 100 10000
+    default 1000
+
+config ROLLOFFESP_RELAY_PULSE_MAX_MS
+    int "Maximum relay button pulse duration (ms)"
+    range 100 10000
+    default 3000
+
+config ROLLOFFESP_ENABLE_BENCH_CONSOLE
+    bool "Enable USB serial bench-test commands"
+    default y
+    help
+        Enables explicit status and timed relay-pulse commands on the serial
+        console. Disable before connecting the relay to a live roof controller.
+
+config ROLLOFFESP_SETUP_SSID
+    string "Wi-Fi setup hotspot SSID"
+    default "ROLLOFFESP"
+
+config ROLLOFFESP_SETUP_PASSWORD
+    string "Wi-Fi setup hotspot WPA2 password"
+    default "12345678"
+
+endmenu
